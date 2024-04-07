@@ -1,0 +1,30 @@
+name: {{ cookiecutter.project_name }}
+description: {{ cookiecutter.description }}
+authors:
+ - {name: {{ cookiecutter.author_name }}}
+
+platform:
+  server_address: {{ cookiecutter.server_address }}
+  rounds: {{ cookiecutter.rounds }}
+  strategy: {{ cookiecutter.strategy }}
+
+docker:
+  # Image name
+  image: {{ cookiecutter.docker_image_name }}
+  # Docker build context relative to $MLCUBE_ROOT. Default is `build`.
+  build_context: "../project"
+  # Docker file name within docker build context, default is `Dockerfile`.
+  build_file: "Dockerfile"
+
+tasks:
+  run:
+  # Performs federated training on the model
+    parameters: 
+      inputs: {
+        parameters_file: parameters.yaml,
+        # Feel free to include other files required for inference.
+        # These files MUST go inside the additional_files path.
+        # e.g. model weights
+        # weights: additional_files/weights.pt,
+        }
+      outputs: {output_path: {type: directory, default: training_history}}

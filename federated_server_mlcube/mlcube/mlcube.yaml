@@ -1,0 +1,28 @@
+name: Federated Server MLCube
+description: Federated Server MLCube Template.
+authors:
+ - {name: John Smith}
+
+platform:
+  server_address: 0.0.0.0:8080
+  rounds: 100
+  strategy: FedAvg
+
+docker:
+  # Image name
+  image: docker/image:latest
+  # Docker build context relative to $MLCUBE_ROOT. Default is `build`.
+  build_context: "../project"
+  # Docker file name within docker build context, default is `Dockerfile`.
+  build_file: "Dockerfile"
+
+tasks:
+  run:
+  # Performs federated training on the model
+    parameters: 
+      inputs: {
+        # Feel free to include other files required for inference.
+        # These files MUST go inside the additional_files path.
+        # e.g. model weights
+        # weights: additional_files/weights.pt,
+        }

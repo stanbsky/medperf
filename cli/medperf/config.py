@@ -208,6 +208,7 @@ templates = {
     "model": "templates/model_mlcube",
     "evaluator": "templates/evaluator_mlcube",
     "gandlf": "templates/gandlf_mlcube",
+    "federated_server": "templates/federated_server_mlcube",
 }
 
 # Temporary paths to cleanup
