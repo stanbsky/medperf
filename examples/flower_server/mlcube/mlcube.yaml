@@ -21,8 +21,11 @@ tasks:
   # Performs federated training on the model
     parameters: 
       inputs: {
+        parameters_file: parameters.yaml
+#        parameters_file: {type: file, default: parameters.yaml},
         # Feel free to include other files required for inference.
         # These files MUST go inside the additional_files path.
         # e.g. model weights
         # weights: additional_files/weights.pt,
         }
+      outputs: {output_path: {type: directory, default: training_history}}
