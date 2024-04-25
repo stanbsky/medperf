@@ -7,6 +7,8 @@ from flwr.common import Metrics
 from flwr.server import start_server, ServerConfig
 from flwr.server.strategy import FedAvg
 
+from utils import save_results_as_pickle
+
 app = typer.Typer()
 
 
@@ -44,6 +46,36 @@ class Server(object):
         )
         # TODO: write history to pickle
         # TODO: write model weights to output file
+
+        # Experiment completed. Now we save the results and
+        # generate plots using the `history`
+        print("................")
+        print(history)
+
+        # save results as a Python pickle using a file_path
+        # the directory created by Hydra for each run
+        save_results_as_pickle(history, file_path=out_path, extra_results={})
+
+        # # plot results and include them in the readme
+        # strategy_name = strategy.__class__.__name__
+        # file_suffix: str = (
+        #     f"_{strategy_name}"
+        #     f"{'_iid' if cfg.dataset_config.iid else ''}"
+        #     f"{'_balanced' if cfg.dataset_config.balance else ''}"
+        #     f"{'_powerlaw' if cfg.dataset_config.power_law else ''}"
+        #     f"_C={cfg.num_clients}"
+        #     f"_B={cfg.batch_size}"
+        #     f"_E={cfg.num_epochs}"
+        #     f"_R={cfg.num_rounds}"
+        #     f"_mu={cfg.mu}"
+        #     f"_strag={cfg.stragglers_fraction}"
+        # )
+        #
+        # utils.plot_metric_from_history(
+        #     history,
+        #     save_path,
+        #     (file_suffix),
+        # )
 
 
 @app.command("run")
