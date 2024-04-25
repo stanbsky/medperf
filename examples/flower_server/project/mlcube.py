@@ -5,9 +5,10 @@ import yaml
 from typing import List, Tuple
 from flwr.common import Metrics
 from flwr.server import start_server, ServerConfig
-from flwr.server.strategy import FedAvg
+# from flwr.server.strategy import FedAvg
 
 from utils import save_results_as_pickle
+from strategy import SaveModelStrategy
 
 app = typer.Typer()
 
@@ -30,21 +31,22 @@ class Server(object):
         with open(params_file, "r") as f:
             params = yaml.full_load(f)
 
-        allowed_strategies = [
-            "FedAvg"
-        ]
+        # allowed_strategies = [
+        #     "FedAvg"
+        # ]
+        #
+        # if params["strategy"] not in allowed_strategies:
+        #     print("The specified strategy couldn't be found")
+        #     exit(1)
+        # else:
+        #     strategy = FedAvg(evaluate_metrics_aggregation_fn=weighted_average)
+        strategy = SaveModelStrategy(evaluate_metrics_aggregation_fn=weighted_average)
 
-        if params["strategy"] not in allowed_strategies:
-            print("The specified strategy couldn't be found")
-            exit(1)
-        else:
-            strategy = FedAvg(evaluate_metrics_aggregation_fn=weighted_average)
         history = start_server(
             server_address=params["server_address"],
             config=ServerConfig(num_rounds=params["rounds"]),
             strategy=strategy,
         )
-        # TODO: write history to pickle
         # TODO: write model weights to output file
 
         # Experiment completed. Now we save the results and

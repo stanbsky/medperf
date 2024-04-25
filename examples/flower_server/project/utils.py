@@ -5,6 +5,7 @@ from pathlib import Path
 from secrets import token_hex
 from typing import Dict, Optional, Union
 
+import torch
 # import matplotlib.pyplot as plt
 # import numpy as np
 from flwr.server.history import History
@@ -51,6 +52,17 @@ from flwr.server.history import History
 #     plt.savefig(Path(save_plot_path) / Path(f"{metric_type}_metrics{suffix}.png"))
 #     plt.close()
 
+def save_model_checkpoint(
+    state_dict: object,
+    training_round: int,
+    output_dir: Union[str, Path] = "/mlcube_io1", # TODO: pass output dir to strategy constructor instead
+) -> None:
+    path = Path(output_dir)
+    path.mkdir(exist_ok=True, parents=True)
+    path = path.joinpath(f"model_round_{training_round}.pth")
+
+    print(f"Saving model checkpoint to {path}")
+    torch.save(state_dict, path)
 
 def save_results_as_pickle(
     history: History,
