@@ -11,4 +11,5 @@ urlpatterns = [
     path("results/", views.ModelResultList.as_view()),
     path("datasets/associations/", views.DatasetAssociationList.as_view()),
     path("mlcubes/associations/", views.MlCubeAssociationList.as_view()),
+    path("fedtraining/", views.FederatedTrainingList.as_view()),
 ]
