@@ -69,6 +69,22 @@ class Comms(ABC):
         """
 
     @abstractmethod
+    def get_user_federated_trainings(self) -> List[dict]:
+        """Retrieves all federated trainings created by the user
+
+        Returns:
+            List[dict]: Federated trainings data
+        """
+
+    @abstractmethod
+    def get_federated_trainings(self) -> List[dict]:
+        """Retrieves all federated trainings in the platform.
+
+        Returns:
+            List[dict]: all federated trainings information.
+        """
+
+    @abstractmethod
     def get_cubes(self) -> List[dict]:
         """Retrieves all MLCubes in the platform
 
@@ -104,6 +120,17 @@ class Comms(ABC):
 
         Returns:
             int: UID of newly created benchmark
+        """
+
+    @abstractmethod
+    def upload_federated_training(self, fedtrain_dict: dict) -> int:
+        """Uploads a new federated training to the server.
+
+        Args:
+            fedtrain_dict (dict): fedtrain_data to be uploaded
+
+        Returns:
+            int: UID of newly created federated training
         """
 
     @abstractmethod

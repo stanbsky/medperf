@@ -36,5 +36,7 @@ urlpatterns = [
         path("results/", include("result.urls", namespace=API_VERSION), name="result"),
         path("users/", include("user.urls", namespace=API_VERSION), name="users"),
         path("me/", include("utils.urls", namespace=API_VERSION), name="me"),
+        # path("fedtrain/", views.FederatedTrainingList.as_view()),
+        path("fedtrain/", include("federatedtraining.urls", namespace=API_VERSION), name="fedtrain"),
     ])),
 ]

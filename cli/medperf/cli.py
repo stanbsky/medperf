@@ -16,6 +16,7 @@ import medperf.commands.benchmark.benchmark as benchmark
 import medperf.commands.profile as profile
 import medperf.commands.association.association as association
 import medperf.commands.compatibility_test.compatibility_test as compatibility_test
+import medperf.commands.fedtrain.federated_training as federated_training
 import medperf.commands.storage as storage
 from medperf.utils import check_for_updates
 from medperf.logging.utils import log_machine_details
@@ -28,6 +29,7 @@ app.add_typer(benchmark.app, name="benchmark", help="Manage benchmarks")
 app.add_typer(association.app, name="association", help="Manage associations")
 app.add_typer(profile.app, name="profile", help="Manage profiles")
 app.add_typer(compatibility_test.app, name="test", help="Manage compatibility tests")
+app.add_typer(federated_training.app, name="fedtrain", help="Manage federated trainings")
 app.add_typer(auth.app, name="auth", help="Authentication")
 app.add_typer(storage.app, name="storage", help="Storage management")
 

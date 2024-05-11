@@ -200,6 +200,25 @@ class REST(Comms):
         bmks = self.__get_list(f"{self.server_url}/me/benchmarks/")
         return bmks
 
+    def get_federated_trainings(self) -> List[dict]:
+        """Retrieves all federated trainings in the platform.
+
+        Returns:
+            List[dict]: all federated trainings information.
+        """
+        ftrs = self.__get_list(f"{self.server_url}/fedtrain/")
+        return ftrs
+
+
+    def get_user_federated_trainings(self) -> List[dict]:
+        """Retrieves all federated trainings created by the user
+
+        Returns:
+            List[dict]: Federated trainings data
+        """
+        ftrs = self.__get_list(f"{self.server_url}/me/fedtrain/")
+        return ftrs
+
     def get_cubes(self) -> List[dict]:
         """Retrieves all MLCubes in the platform
 
@@ -250,6 +269,22 @@ class REST(Comms):
             log_response_error(res)
             details = format_errors_dict(res.json())
             raise CommunicationRetrievalError(f"Could not upload benchmark: {details}")
+        return res.json()
+
+    def upload_federated_training(self, fedtrain_dict: dict) -> int:
+        """Uploads a new federated training to the server.
+
+        Args:
+            fedtrain_dict (dict): fedtrain_data to be uploaded
+
+        Returns:
+            int: UID of newly created federated_training
+        """
+        res = self.__auth_post(f"{self.server_url}/fedtrain/", json=fedtrain_dict)
+        if res.status_code != 201:
+            log_response_error(res)
+            details = format_errors_dict(res.json())
+            raise CommunicationRetrievalError(f"Could not upload federated training: {details}")
         return res.json()
 
     def upload_mlcube(self, mlcube_body: dict) -> int:

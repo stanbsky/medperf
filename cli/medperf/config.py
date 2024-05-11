@@ -10,7 +10,7 @@ server = "https://api.medperf.org"
 certificate = None
 
 local_server = "https://localhost:8000"
-local_certificate = str(BASE_DIR / "server" / "cert.crt")
+local_certificate = "/Users/stanborzhemsky/uni/prbx/own/medperf/server/cert.crt" #str(BASE_DIR / "server" / "cert.crt")
 
 comms = "REST"
 
@@ -61,6 +61,7 @@ experiments_logs_folder = "experiments_logs"
 results_folder = "results"
 predictions_folder = "predictions"
 tests_folder = "tests"
+federated_training_folder = "federated_training"
 
 default_base_storage = str(Path.home().resolve() / ".medperf")
 
@@ -93,6 +94,10 @@ storage = {
         "base": default_base_storage,
         "name": datasets_folder,
     },
+    "federated_training_folder": {
+        "base": default_base_storage,
+        "name": federated_training_folder,
+    },
     "experiments_logs_folder": {
         "base": default_base_storage,
         "name": experiments_logs_folder,
@@ -121,6 +126,7 @@ server_folders = [
     "benchmarks_folder",
     "cubes_folder",
     "datasets_folder",
+    "federated_training_folder",
     "experiments_logs_folder",
     "results_folder",
     "predictions_folder",
@@ -130,6 +136,7 @@ server_folders = [
 # MedPerf filenames conventions
 results_info_file = "result-info.yaml"
 benchmarks_filename = "benchmark.yaml"
+fedtrain_filename = "fedtrain.yaml"
 test_report_file = "test_report.yaml"
 reg_file = "registration-info.yaml"
 cube_metadata_filename = "mlcube-meta.yaml"
