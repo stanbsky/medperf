@@ -89,6 +89,7 @@ INSTALLED_APPS = [
     "benchmarkdataset",
     "mlcube",
     "benchmarkmodel",
+    "federatedtraining",
     "user",
     "result",
     "rest_framework",

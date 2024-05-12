@@ -1,0 +1,10 @@
+{
+    "project_name": "Federated Server MLCube",
+    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+    "description": "Federated Server MLCube Template.",
+    "author_name": "John Smith",
+    "server_address": "0.0.0.0:8080",
+    "rounds": "100",
+    "strategy": "FedAvg",
+    "docker_image_name": "docker/image:latest"
+}

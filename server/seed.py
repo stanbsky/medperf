@@ -37,6 +37,10 @@ def seed(args):
         return
     # create benchmark
     benchmark_owner_token = get_token("testbo@example.com")
+    # TODO: create a separate fedtrain user
+    # create federated training
+    if args.demo == "fedtrain":
+        return
     benchmark = create_benchmark(api_server, benchmark_owner_token, admin_token)
     if args.demo == "model":
         return
@@ -72,7 +76,7 @@ if __name__ == "__main__":
         type=str,
         help="Seed for a tutorial: 'benchmark', 'model', or 'data'.",
         default="data",
-        choices=["benchmark", "model", "data"],
+        choices=["benchmark", "model", "data", "fedtrain"],
     )
     parser.add_argument(
         "--tokens",

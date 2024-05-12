@@ -5,12 +5,14 @@ from result.serializers import ModelResultSerializer
 from benchmark.serializers import BenchmarkSerializer
 from benchmarkdataset.serializers import BenchmarkDatasetListSerializer
 from benchmarkmodel.serializers import BenchmarkModelListSerializer
+from federatedtraining.serializers import FederatedTrainingSerializer
 from benchmark.models import Benchmark
 from dataset.models import Dataset
 from mlcube.models import MlCube
 from result.models import ModelResult
 from benchmarkmodel.models import BenchmarkModel
 from benchmarkdataset.models import BenchmarkDataset
+from federatedtraining.models import FederatedTraining
 from django.http import Http404
 from django.conf import settings
 from django.db.models import Q
@@ -155,6 +157,26 @@ class MlCubeAssociationList(GenericAPIView):
         benchmarkmodels = self.get_object(request.user.id)
         benchmarkmodels = self.paginate_queryset(benchmarkmodels)
         serializer = BenchmarkModelListSerializer(benchmarkmodels, many=True)
+        return self.get_paginated_response(serializer.data)
+
+
+class FederatedTrainingList(GenericAPIView):
+    serializer_class = FederatedTrainingSerializer
+    queryset = ""
+
+    def get_object(self, pk):
+        try:
+            return FederatedTraining.objects.filter(owner__id=pk)
+        except FederatedTraining.DoesNotExist:
+            raise Http404
+
+    def get(self, request, format=None):
+        """
+        Retrieve all federated trainings owned by the current user
+        """
+        trainings = self.get_object(request.user.id)
+        trainings = self.paginate_queryset(trainings)
+        serializer = FederatedTrainingSerializer(trainings, many=True)
         return self.get_paginated_response(serializer.data)
 
 
